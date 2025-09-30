@@ -1,0 +1,88 @@
+   <%layout("layout/navbar.ejs")%>
+    <title>Doctor Profile</title>
+  <link rel="stylesheet" href="DoctProfile.css">
+</head>
+<body>
+    <div class="containerr">
+        <div class="profile-header">
+            <img src="https://as2.ftcdn.net/v2/jpg/02/60/04/09/1000_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg" alt="Doctor Image" class="doctor-image">
+            <div class="profile-info">
+                <h1>Dr. John Doe</h1>
+                <p class="specialization">Cardiologist</p>
+                <p class="rating"><b>Rating:</b> 4.8 / 5 <span class="stars">★★★★★</span></p>
+                <p class="experience"><b>Experience:</b> 10+ Years</p>
+                <p class="qualification"><b>Qualification:</b>MBBS, MD (Cardiology)</p>
+            </div>
+        </div>
+    <a ><button class="save-btn" >Edit Profile</button></a>
+
+
+        <div class="about-section">
+            <h2>About Me</h2>
+            <p>Dr. John Doe is a renowned cardiologist specializing in heart disease, hypertension, and preventive care. With over 10 years of experience, Dr. Doe is dedicated to providing personalized care to patients of all ages.</p>
+        </div>
+
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            <ul>
+                <li ><strong>Location:</strong> New York, NY &nbsp;&nbsp;<a href="/map" target="_blank" class="location-link">See Location</a></li>
+                <li><strong>Email:</strong> johndoe@example.com</li>
+                <li><strong>Phone:</strong> (123) 456-7890</li>
+                <li><strong>Website:</strong> www.johndoecardio.com</li>
+            </ul>
+        </div>
+
+        <div class="availability">
+            <h2>Available for Appointments</h2>
+
+           <form action="/doctProfile" method="post">
+            <div class="availability-schedule">
+                  <input type="hidden" name="appointment_day" id="appointment_day">
+                <div class="availability-btn">Mon: 9:00 AM - 12:00 PM</div>
+                <div class="availability-btn">Tue: 1:00 PM - 5:00 PM</div>
+                <div class="availability-btn">Wed: 9:00 AM - 12:00 PM</div>
+                <div class="availability-btn">Thu: 1:00 PM - 5:00 PM</div>
+                <div  class="availability-btn">Fri: 9:00 AM - 12:00 PM</div>
+            </div>
+        </div>
+
+        <div class="book-appointment">
+            <button class="book-btn hide" type=" submit">Book an Appointment</button>
+        </div>
+        </form>
+
+
+
+        <div class="review-section">
+            <h2>Reviews</h2>
+            <div class="review-list">
+                <div class="review-item">
+                    <p class="review-rating">★★★★★</p>
+                    <p class="review-text">"Dr. John Doe is amazing! He took the time to explain everything and made me feel comfortable during my visit."</p>
+                    <p><strong>- Sarah K.</strong></p>
+                </div>
+                <div class="review-item">
+                    <p class="review-rating">★★★★☆</p>
+                    <p class="review-text">"Great doctor! I had a quick consultation and felt much better after his advice."</p>
+                    <p><strong>- Mike T.</strong></p>
+                </div>
+            </div>
+
+            <div class="review-form">
+                <h3>Submit Your Review</h3>
+
+                <form action="/doctProfile" method="post">
+                <input type="text" id="review-name" name="name" placeholder="Your Name" required>
+                <textarea id="review-text" rows="4" name="comment" placeholder="Write your review..." required></textarea>
+                <button type="submit" id="submit-review">Submit Review</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="DoctorProfile.js">
+     
+    </script>
+</body>
+</html>

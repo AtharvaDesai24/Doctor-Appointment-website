@@ -1,0 +1,58 @@
+
+<%layout("layout/navbar.ejs")%>
+    <title>User Profile</title>
+
+</head>
+<link rel="stylesheet" href="userProfile.css">
+<body>
+    <div class="containerr">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Avatar" class="profile-avatar">
+            <div class="profile-info">
+                <h1>John Doe</h1>
+                <p>Email: johndoe@example.com</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Location: New York, NY</p>
+                <button>Edit Profile</button>
+            </div>
+        </div>
+
+         <!-- Appointments Section -->
+        <div class="appointments-section">
+            <h2>Upcoming Appointments</h2>
+            <div class="appointment-item">
+                <p><strong>Doctor:</strong> Dr. Sarah Lee</p>
+                <p><strong>Date:</strong> August 25, 2023 - 10:00 AM</p>
+                <p><strong>Status:</strong> Scheduled</p>
+                <button>Cancel Appointment</button>
+            </div>
+            <div class="appointment-item">
+                <p><strong>Doctor:</strong> Dr. John Smith</p>
+                <p><strong>Date:</strong> September 5, 2023 - 3:00 PM</p>
+                <p><strong>Status:</strong> Scheduled</p>
+                <button>Cancel Appointment</button>
+            </div>
+        </div>
+
+        <!-- Previous Appointments Section -->
+        <div class="appointments-section">
+            <h2>Previous Appointments</h2>
+            <div class="appointment-item">
+                <p><strong>Doctor:</strong> Dr. John Smith</p>
+                <p><strong>Date:</strong> July 15, 2023 - 10:00 AM</p>
+                <p><strong>Status:</strong> Completed</p>
+                <button>View Prescription</button>
+                <button>Rebook Appointment</button>
+            </div>
+            <div class="appointment-item">
+                <p><strong>Doctor:</strong> Dr. Sarah Lee</p>
+                <p><strong>Date:</strong> June 22, 2023 - 2:00 PM</p>
+                <p><strong>Status:</strong> Completed</p>
+                <button>View Prescription</button>
+                <button>Rebook Appointment</button>
+            </div>
+        </div>
+ </div>
+</body>
+</html>
