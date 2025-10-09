@@ -1,4 +1,6 @@
-﻿.env
+.env
+node_modules/
+.env
 
 # Dependencies
 node_modules/
