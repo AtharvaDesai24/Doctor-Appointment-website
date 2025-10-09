@@ -1,0 +1,162 @@
+<% layout("layout/navbar.ejs") %>
+    <title>Register</title>
+    <link href="/register.css" rel="stylesheet" >
+</head>
+<body>
+      <div class="login-container">
+    <h2>user Register</h2>
+    <form class="up" method="post" action="/Userreg">
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <input type="password" name="password" placeholder="Set your password" required>
+
+      <!--phone number-->
+        <div style="display: flex; align-items: center;">
+          <span class="telCode">+91</span>
+        <input type="tel"  pattern="[0-9]{10}" placeholder="enter phone number" maxlength="10" id="phone" name="phone" required>
+        </div>
+
+
+      
+        <!--OTP-->
+         <button onclick="getOTP()">Get OTP</button>
+        
+        <div class="otp-section" id="otpDiv">
+            <p>Enter the 4-digit OTP sent to your phone</p>
+            <div class="otp-boxes">
+                <input type="text" class="otp-box" maxlength="1">
+                <input type="text" class="otp-box" maxlength="1">
+                <input type="text" class="otp-box" maxlength="1">
+                <input type="text" class="otp-box" maxlength="1">
+            </div>
+            <span><button class="verify-btn" onclick="verify()">Verify OTP</button></span>
+            <div class="resend" onclick="resendOTP()">Resend OTP</div>
+        </div>
+        
+        <div class="message" id="msg"></div>
+   
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <button type="submit">Register</button>
+    </form>
+    <hr>
+    <p>OR</p>
+    <div class="box">
+        <div class="opt google">
+            <img src="/Google.png" height="53px" width="53px">
+        </div>
+        
+          <div class="opt facebook">
+              <img src="/Facebook.jpg" height="53px" width="53px">
+        </div>
+        </div>
+      
+    </div>
+
+  
+
+  
+</body>
+</html>
+<script>
+    var phoneInput = document.getElementById('phone');
+        var otpBoxes = document.getElementsByClassName('otp-box');
+        var msgDiv = document.getElementById('msg');
+        
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        
+        function getOTP() {
+            var phone = phoneInput.value;
+            if(phone.length !== 10) {
+                showMessage('Please enter valid 10-digit phone number', 'error');
+                return;
+            }
+            document.getElementById('otpDiv').style.display = 'block';
+            showMessage('OTP sent to +91' + phone, 'success');
+            otpBoxes[0].focus();
+        }
+        
+        for(var i = 0; i < otpBoxes.length; i++) {
+            otpBoxes[i].addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if(this.value.length == 1) {
+                    var next = this.nextElementSibling;
+                    if(next && next.classList.contains('otp-box')) {
+                        next.focus();
+                    }
+                }
+            });
+            
+            otpBoxes[i].addEventListener('keydown', function(e) {
+                if(e.key === 'Backspace' && this.value === '') {
+                    var prev = this.previousElementSibling;
+                    if(prev && prev.classList.contains('otp-box')) {
+                        prev.focus();
+                    }
+                }
+            });
+            
+            otpBoxes[i].addEventListener('paste', function(e) {
+                e.preventDefault();
+                var paste = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
+                var currentIndex = Array.from(otpBoxes).indexOf(this);
+                for(var j = 0; j < paste.length && currentIndex + j < otpBoxes.length; j++) {
+                    otpBoxes[currentIndex + j].value = paste[j];
+                }
+                var lastIndex = Math.min(currentIndex + paste.length, otpBoxes.length - 1);
+                otpBoxes[lastIndex].focus();
+            });
+        }
+        
+        function verify() {
+            var otp = '';
+            for(var i = 0; i < otpBoxes.length; i++) {
+                otp += otpBoxes[i].value;
+            }
+            if(otp.length !== 4) {
+                showMessage('Please enter complete 4-digit OTP', 'error');
+                return;
+            }
+            showMessage('OTP verified successfully!', 'success');
+            setTimeout(function() {
+                for(var i = 0; i < otpBoxes.length; i++) {
+                    otpBoxes[i].value = '';
+                }
+            }, 1500);
+        }
+        
+        function resendOTP() {
+            var phone = phoneInput.value;
+            showMessage('OTP resent to +91' + phone, 'success');
+            for(var i = 0; i < otpBoxes.length; i++) {
+                otpBoxes[i].value = '';
+            }
+            otpBoxes[0].focus();
+        }
+        
+        function showMessage(text, type) {
+            msgDiv.textContent = text;
+            msgDiv.className = 'message show ' + type;
+            setTimeout(function() {
+                msgDiv.className = 'message';
+            }, 3000);
+        }
+</script>

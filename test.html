@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .save-btn {
+            height: fit-content;
+            width: fit-content;
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 21px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            position: relative;
+            left: 10px;
+        }
+
+        .containerr {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .doctor-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-info h1 {
+            font-size: 32px;
+            margin: 0;
+        }
+
+        .profile-info p {
+            color: gray;
+        }
+
+        .specialization, .location, .rating, .experience {
+            color: #666;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .stars {
+            color: gold;
+        }
+
+        .about-section, .contact-info, .availability {
+            margin-top: 40px;
+        }
+
+        .about-section h2, .contact-info h2, .availability h2 {
+            font-size: 24px;
+            color: #444;
+        }
+
+        .contact-info li {
+            margin-top: 10px;
+        }
+
+        .availability-schedule {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .availability-btn {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .availability-btn:hover {
+            background-color: #4cae4c;
+        }
+
+        .book-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .book-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .location-link {
+            color: #007bff;
+            font-size: 16px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .location-link:hover {
+            text-decoration: underline;
+        }
+
+        .review-section {
+            margin-top: 40px;
+        }
+
+        .review-section h2 {
+            font-size: 24px;
+            color: #444;
+        }
+
+        .review-list {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-item .review-rating {
+            color: gold;
+            font-size: 16px;
+        }
+
+        .review-item .review-text {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .review-form {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+
+        .review-form input, .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .review-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .review-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Additional styles for interactive features */
+        .availability-btn.selected {
+            background-color: #007bff;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .availability-btn.selected::after {
+            content: '✓';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+        }
+
+        .book-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #6c757d;
+        }
+
+        .book-btn:disabled:hover {
+            background-color: #6c757d;
+        }
+
+        /* Editing styles */
+        [data-editable="true"] {
+            transition: all 0.3s ease;
+        }
+
+        [data-editable="true"][contenteditable="true"] {
+            border-bottom: 2px dashed #007BFF;
+            padding: 2px 5px;
+            cursor: text;
+            background-color: #f0f8ff;
+        }
+
+        [data-editable="true"][contenteditable="true"]:focus {
+            outline: none;
+            background-color: #e6f3ff;
+        }
+
+        .edit-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .save-btn:hover {
+            background: #0056b3;
+        }
+
+        .save-btn.save {
+            background: #28a745;
+        }
+
+        .save-btn.save:hover {
+            background: #218838;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .doctor-image {
+                margin-bottom: 20px;
+            }
+
+            .profile-info {
+                text-align: center;
+            }
+
+            .availability-schedule {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .availability-btn {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+
+            .book-btn {
+                width: 80%;
+                padding: 10px;
+            }
+        }
+
+        /* Mobile sathi */
+        @media (max-width: 480px) {
+            .profile-info h1 {
+                font-size: 28px;
+            }
+
+            .specialization, .location, .rating, .experience {
+                font-size: 14px;
+            }
+
+            .availability-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .book-btn {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+
+            .review-item .review-rating {
+                font-size: 14px;
+            }
+
+            .review-form input, .review-form textarea {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .review-form button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="containerr">
+        <div class="profile-header">
+            <img src="https://as2.ftcdn.net/v2/jpg/02/60/04/09/1000_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg" alt="Doctor Image" class="doctor-image">
+            <div class="profile-info">
+                <h1 data-editable="true">Dr. John Doe</h1>
+                <p class="specialization" data-editable="true">Cardiologist</p>
+                <p class="rating"><b>Rating:</b> 4.8 / 5 <span class="stars">★★★★★</span></p>
+                <p class="experience" data-editable="true"><b>Experience:</b> 15 Years</p>
+                <p class="qualification" data-editable="true"><b>Qualification:</b> MD, FACC</p>
+            </div>
+        </div>
+    
+        <div class="edit-buttons">
+            <button class="save-btn" id="editBtn" onclick="toggleEditing()">Enable Editing</button>
+            <button class="save-btn save" onclick="saveProfile()">Save Profile</button>
+        </div>
+
+        <div class="about-section">
+            <h2>About Me</h2>
+            <p data-editable="true">Dr. John Doe is a highly experienced cardiologist with over 15 years of practice. He specializes in preventive cardiology and has helped thousands of patients maintain healthy hearts through personalized treatment plans.</p>
+        </div>
+
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            <ul>
+                <li data-editable="true"><strong>Location:</strong> 123 Medical Center, Downtown &nbsp;&nbsp;<a href="#" target="_blank" class="location-link">See Location</a></li>
+                <li data-editable="true"><strong>Email:</strong> dr.johndoe@hospital.com</li>
+                <li data-editable="true"><strong>Phone:</strong> +1 (555) 123-4567</li>
+                <li data-editable="true"><strong>Website:</strong> www.johndoecardio.com</li>
+            </ul>
+        </div>
+
+        <div class="availability">
+            <h2>Available for Appointments</h2>
+
+            <form id="appointmentForm">
+                <input type="hidden" name="appointment_day" id="appointment_day">
+                <div class="availability-schedule">
+                    <div class="availability-btn" data-day="Monday" data-time="9:00 AM - 12:00 PM" data-editable="true">Mon: 9:00 AM - 12:00 PM</div>
+                    <div class="availability-btn" data-day="Tuesday" data-time="1:00 PM - 5:00 PM" data-editable="true">Tue: 1:00 PM - 5:00 PM</div>
+                    <div class="availability-btn" data-day="Wednesday" data-time="9:00 AM - 12:00 PM" data-editable="true">Wed: 9:00 AM - 12:00 PM</div>
+                    <div class="availability-btn" data-day="Thursday" data-time="1:00 PM - 5:00 PM" data-editable="true">Thu: 1:00 PM - 5:00 PM</div>
+                    <div class="availability-btn" data-day="Friday" data-time="9:00 AM - 12:00 PM" data-editable="true">Fri: 9:00 AM - 12:00 PM</div>
+                </div>
+
+                <button class="book-btn" type="submit" id="bookBtn" disabled>Select a day to book appointment</button>
+            </form>
+        </div>
+
+        <div class="review-section">
+            <h2>Reviews</h2>
+            <div class="review-list" id="reviewList">
+                <div class="review-item">
+                    <p class="review-rating">★★★★★</p>
+                    <p class="review-text">"Dr. John Doe is amazing! He took the time to explain everything and made me feel comfortable during my visit."</p>
+                    <p><strong>- Sarah K.</strong></p>
+                </div>
+                <div class="review-item">
+                    <p class="review-rating">★★★★☆</p>
+                    <p class="review-text">"Great doctor! I had a quick consultation and felt much better after his advice."</p>
+                    <p><strong>- Mike T.</strong></p>
+                </div>
+            </div>
+
+            <div class="review-form">
+                <h3>Submit Your Review</h3>
+                <form id="reviewForm">
+                    <input type="text" id="review-name" name="name" placeholder="Your Name" required>
+                    <textarea id="review-text" rows="4" name="comment" placeholder="Write your review..." required></textarea>
+                    <button type="submit" id="submit-review">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // PROFILE EDITING FUNCTIONALITY
+        // ============================================
+        let editingEnabled = false;
+
+        function toggleEditing() {
+            editingEnabled = !editingEnabled;
+            const fields = document.querySelectorAll('[data-editable="true"]');
+            const editBtn = document.getElementById('editBtn');
+
+            fields.forEach(field => {
+                field.contentEditable = editingEnabled;
+            });
+
+            editBtn.innerText = editingEnabled ? "Disable Editing" : "Enable Editing";
+            editBtn.style.background = editingEnabled ? "#dc3545" : "#007BFF";
+            
+            if (editingEnabled) {
+                alert("Editing enabled! Click on any text to edit it.");
+            }
+        }
+
+        function saveProfile() {
+            const fields = document.querySelectorAll('[data-editable="true"]');
+            let profileData = [];
+            
+            fields.forEach(field => {
+                profileData.push(field.innerText.trim());
+            });
+
+            // Here you would normally send this data to your server
+            console.log("Profile data to save:", profileData);
+            
+            alert("Profile saved successfully!\n\nIn a real application, this would save to your database.");
+            
+            // Disable editing after save
+            if (editingEnabled) {
+                toggleEditing();
+            }
+        }
+
+        // ============================================
+        // APPOINTMENT BOOKING FUNCTIONALITY
+        // ============================================
+        const availabilityBtns = document.querySelectorAll('.availability-btn');
+        const appointmentDayInput = document.getElementById('appointment_day');
+        const bookBtn = document.getElementById('bookBtn');
+        const appointmentForm = document.getElementById('appointmentForm');
+
+        // Handle availability button clicks
+        availabilityBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Don't select if in editing mode
+                if (editingEnabled) {
+                    return;
+                }
+                
+                // Remove selected class from all buttons
+                availabilityBtns.forEach(b => b.classList.remove('selected'));
+                
+                // Add selected class to clicked button
+                this.classList.add('selected');
+                
+                // Get the day from data attribute
+                const day = this.getAttribute('data-day');
+                const time = this.getAttribute('data-time');
+                appointmentDayInput.value = day;
+                
+                // Enable and update book button
+                bookBtn.disabled = false;
+                bookBtn.textContent = `Book Appointment for ${day}`;
+            });
+        });
+
+        // Handle appointment form submission
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!appointmentDayInput.value) {
+                alert('Please select a day for your appointment');
+                return;
+            }
+            
+            const selectedDay = appointmentDayInput.value;
+            
+            // Here you would normally send this to your server
+            // For now, just show a confirmation
+            alert(`Appointment Request Submitted!\n\nDay: ${selectedDay}\n\nYou will receive a confirmation email shortly.`);
+            
+            // Reset selection
+            availabilityBtns.forEach(b => b.classList.remove('selected'));
+            appointmentDayInput.value = '';
+            bookBtn.disabled = true;
+            bookBtn.textContent = 'Select a day to book appointment';
+        });
+
+        // ============================================
+        // REVIEW SUBMISSION FUNCTIONALITY
+        // ============================================
+        const reviewForm = document.getElementById('reviewForm');
+        const reviewList = document.getElementById('reviewList');
+
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('review-name').value.trim();
+            const text = document.getElementById('review-text').value.trim();
+            
+            if (!name || !text) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Create new review element
+            const reviewItem = document.createElement('div');
+            reviewItem.className = 'review-item';
+            reviewItem.innerHTML = `
+                <p class="review-rating">★★★★★</p>
+                <p class="review-text">"${text}"</p>
+                <p><strong>- ${name}</strong></p>
+            `;
+            
+            // Add to review list with animation
+            reviewItem.style.opacity = '0';
+            reviewList.appendChild(reviewItem);
+            
+            setTimeout(() => {
+                reviewItem.style.transition = 'opacity 0.5s ease';
+                reviewItem.style.opacity = '1';
+            }, 10);
+            
+            // Reset form
+            reviewForm.reset();
+            
+            // Show success message
+            alert('Thank you for your review!');
+        });
+
+        // Prevent appointment selection while editing
+        document.addEventListener('click', function(e) {
+            if (editingEnabled && e.target.classList.contains('availability-btn')) {
+                e.stopPropagation();
+            }
+        });
+    </script>
+</body>
+</html>

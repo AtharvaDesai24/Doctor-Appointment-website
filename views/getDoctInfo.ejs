@@ -1,0 +1,136 @@
+
+<% layout("layout/navbar.ejs") %>
+  <title>Company Registeration</title>
+ <link rel="stylesheet" href="/getDoctInfo.css">
+</head>
+<body>
+<div class="outerbox"> 
+  <div class="containerr">
+    <div class="info-section">
+    <img src="/MediLink-.png" alt="MediLink Logo" style="width: 300px; height: auto;">
+      <h2>Let's get started</h2>
+      <p>MediLink makes it simple for patients to connect with the right doctors. It’s quick to join, with no hidden fees or complicated steps.</p>
+    </div>
+
+    <div class="form-section">
+      <form method="post" action="/CompInfo">
+        <label for="first-name">First name</label>
+        <input type="text" id="first-name" name="firstname"  required>
+         
+        <label for="last-name">Last name</label>
+        <input type="text" id="last-name" name="lastname"  required>
+
+        <label for="practice-name">Clinic name</label>
+        <input type="text" id="practice-name" name="ClinicName"  required>
+
+        <label for="qua">Qualification</label>
+        <input id="qua" name="qualification" type="text"  required></input>
+
+        <label for="exp">Experiance</label>
+        <input id="exp" name="Experience" type="text" placeholder="[yrs]-years"  required></input>
+
+
+        <label for="specialty">Practice or provider's specialty</label>
+        <select id="specialty" name="specialty" required>
+
+          <option>Select</option>
+           <% for(let speciality of specialtyCategories) {%>
+        <option><%= speciality %></option>
+        <% } %>
+        <option>other</option>
+        </select>
+
+        <label for="size">Practice size</label>
+        <input id="size" name="size" type="number"  required></input>
+
+          <label for="fees">Practicing Fees</label>
+        <input id="fees" name="fees" type="number"  required></input>
+
+
+        <label for="phone">Phone number</label>
+        <div class="phcont">
+          <span class="telCode">+91</span>
+        <input type="tel"  pattern="[0-9]{10}" placeholder="enter phone number" maxlength="10" id="phone" name="phone" required>
+        </div>
+
+
+       <br><br>
+        <label for="compAdd">Enter Company address</label>
+        <input type="text" id="compAdd" name="compAdd"  required>
+        <div class="curLoc" >
+         Use current Location 
+        </div>
+        <!--Coordinates sending-->
+        <input type="text" hidden id="lat" name="lat">
+        <input type="text" hidden id="lng" name="lon">
+        <br>
+        <br><br>
+        <!---Taking days and time-->
+        <h1> SET UP Clinic info:-</h1>
+         
+        <div class="form-group">
+                <label >Select Opening Days Range:</label>
+                <div class="day-range">
+                    <select id="startDay" name="startDay" required>
+                        <option value="">Start Day</option>
+                        <option value="Mon">Monday</option>
+                        <option value="Tue">Tuesday</option>
+                        <option value="Wed">Wednesday</option>
+                        <option value="Thu">Thursday</option>
+                        <option value="Fri">Friday</option>
+                        <option value="Sat">Saturday</option>
+                        <option value="Sun">Sunday</option>
+                    </select>
+                    <span class="separator">-</span>
+                    <select id="endDay" name="endDay" required>
+                        <option value="">End Day</option>
+                        <option value="Mon">Monday</option>
+                        <option value="Tue">Tuesday</option>
+                        <option value="Wed">Wednesday</option>
+                        <option value="Thu">Thursday</option>
+                        <option value="Fri">Friday</option>
+                        <option value="Sat">Saturday</option>
+                        <option value="Sun">Sunday</option>
+                    </select>
+                </div>
+                
+
+
+         <br>
+         <!--INputiing time-->
+            <div class="form-group">
+                <label>Clinic Time</label>
+                <div class="time-inputs">
+                    <div>
+                        <label for="startTime" style="font-size: 12px; color: #666;">Opening Time</label>
+                        <input type="time" name="startTime" id="startTime" required>
+                    </div>
+                    <div>
+                        <label for="endTime" style="font-size: 12px; color: #666;">Closing Time</label>
+                        <input type="time" id="endTime" name="endTime" required>
+                    </div>
+                </div>
+            </div>
+
+        
+        
+        <label for="aboutMe">Tell me about You</label>
+        <textarea name="aboutMe" id="aboutMe" rows="5" cols="10"></textarea>
+
+
+
+              <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+</div> 
+</body>
+<script>
+   window.APP_CONFIG = {
+    googleMapsApiKey: '<%= GMapAPIkey %>',
+    // You can add more config values here
+  };
+</script>
+
+<script src="/getDoctInfo.js"> </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=GMapAPIkey %>&callback=initMap&v=weekly"></script>

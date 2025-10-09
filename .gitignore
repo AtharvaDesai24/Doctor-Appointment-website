@@ -1,0 +1,10 @@
+﻿.env
+
+# Dependencies
+node_modules/
+
+# IDE
+.vscode/
+
+# Copied folder
+Doctor - Copy/

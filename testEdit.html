@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f8fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .doctor-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .doctor-header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #4CAF50;
+    }
+
+    .doctor-info h2, 
+    .doctor-info p {
+      margin: 5px 0;
+      color: #333;
+    }
+
+    h3 {
+      margin-top: 25px;
+      color: #444;
+    }
+
+    .appointments {
+      margin-top: 10px;
+    }
+
+    .time-slot {
+      display: inline-block;
+      background: #4CAF50;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      margin: 5px 5px 0 0;
+      cursor: default;
+    }
+
+    .save-btn {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .reviews {
+      margin-top: 25px;
+    }
+
+    .review {
+      border-top: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .review strong {
+      color: #333;
+    }
+
+    .add-review {
+      margin-top: 15px;
+    }
+
+    .add-review textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .add-review button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-container">
+    <div class="doctor-header">
+      <img src="doctor.jpg" alt="Doctor Picture"> <!-- Replace with your uploaded image -->
+      <div class="doctor-info" id="doctor-info">
+        <h2 data-editable="true">Dr. John Doe</h2>
+        <p data-editable="true"><strong>Specialty:</strong> Cardiologist</p>
+        <p data-editable="true"><strong>Clinic:</strong> MediLink Clinic</p>
+        <p data-editable="true"><strong>Experience:</strong> 10+ Years</p>
+        <p data-editable="true"><strong>Qualification:</strong> MBBS, MD (Cardiology)</p>
+        <p data-editable="true"><strong>Contact:</strong> (123) 456-7890</p>
+        <p data-editable="true"><strong>Address:</strong> 123 Main Street, New York, NY</p>
+      </div>
+    </div>
+    
+    <button class="save-btn" onclick="toggleEditing()" id="editBtn">Enable Editing</button>
+    <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+
+    <h3>Available for Appointments</h3>
+    <div class="appointments" id="appointments">
+      <div class="time-slot" data-editable="true">Mon: 9:00 AM - 12:00 PM</div>
+      <div class="time-slot" data-editable="true">Tue: 1:00 PM - 5:00 PM</div>
+      <div class="time-slot" data-editable="true">Wed: 9:00 AM - 12:00 PM</div>
+      <div class="time-slot" data-editable="true">Thu: 1:00 PM - 5:00 PM</div>
+      <div class="time-slot" data-editable="true">Fri: 9:00 AM - 12:00 PM</div>
+    </div>
+    <button class="save-btn" onclick="saveAppointments()">Save Appointments</button>
+
+    <h3>Patient Reviews</h3>
+    <div class="reviews" id="reviews">
+      <div class="review"><strong>Alice:</strong> Excellent doctor! Very caring and professional.</div>
+      <div class="review"><strong>Michael:</strong> Helped me with my heart condition, highly recommended.</div>
+    </div>
+
+    <div class="add-review">
+      <textarea id="reviewText" placeholder="Write your review..."></textarea>
+      <button onclick="addReview()">Submit Review</button>
+    </div>
+  </div>
+
+  <script>
+    let editingEnabled = false;
+
+    function toggleEditing() {
+      editingEnabled = !editingEnabled;
+      const fields = document.querySelectorAll('[data-editable="true"]');
+
+      fields.forEach(field => {
+        field.contentEditable = editingEnabled;
+        field.style.borderBottom = editingEnabled ? "1px dashed #999" : "none";
+        field.style.cursor = editingEnabled ? "text" : "default";
+      });
+
+      document.getElementById('editBtn').innerText = editingEnabled ? "Disable Editing" : "Enable Editing";
+    }
+
+    function saveProfile() {
+      const info = document.querySelectorAll('#doctor-info [data-editable="true"]');
+      let profileData = [];
+      info.forEach(el => profileData.push(el.innerText.trim()));
+      alert("Profile updated:\n" + profileData.join("\n"));
+    }
+
+    function saveAppointments() {
+      const slots = document.querySelectorAll('.time-slot');
+      let timings = [];
+      slots.forEach(slot => timings.push(slot.innerText.trim()));
+      alert("Appointments updated:\n" + timings.join("\n"));
+    }
+
+    function addReview() {
+      const reviewText = document.getElementById('reviewText').value.trim();
+      if (reviewText !== "") {
+        const reviews = document.getElementById('reviews');
+        const newReview = document.createElement('div');
+        newReview.classList.add('review');
+        newReview.innerHTML = "<strong>Patient:</strong> " + reviewText;
+        reviews.appendChild(newReview);
+        document.getElementById('reviewText').value = "";
+      } else {
+        alert("Please write a review before submitting.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<% layout("layout/navbar.ejs") %>
+    <title>Doctor Register</title>
+    <link href="/register.css" rel="stylesheet" >
+
+<body>
+      <div class="login-container" >
+    <h2>Company Registration</h2>
+    <form class="up" method="post" action="/CompInfo">
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <input type="password" name="password" placeholder="Set your password" required>
+      <button type="submit">Ok</button>
+    </form>
+    <hr>
+    <p>OR</p>
+    <div class="box">
+        <div class="opt google">
+            <img src="/Google.png" height="53px" width="53px">
+        </div>
+        
+          <div class="opt facebook">
+              <img src="/Facebook.jpg" height="53px" width="53px">
+        </div>
+        </div>
+      
+    </div>
+</body>

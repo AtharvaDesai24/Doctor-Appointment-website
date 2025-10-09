@@ -1,0 +1,31 @@
+const specialtyCategories = [
+  "Internal Medicine",
+  "Surgical Specialties",
+  "Pediatrics",
+  "Obstetrics & Gynecology (OB-GYN)",
+  "Psychiatry & Mental Health",
+  "Diagnostic & Laboratory Medicine",
+  "Emergency & Critical Care",
+  "Anesthesiology",
+  "Dermatology",
+  "Neurology & Neurosurgery",
+  "Orthopedics & Musculoskeletal",
+  "Ophthalmology",
+  "Otolaryngology (ENT)",
+  "Cardiology & Cardiothoracic Surgery",
+  "Gastroenterology & Hepatology",
+  "Nephrology & Urology",
+  "Pulmonology & Respiratory Medicine",
+  "Endocrinology & Metabolism",
+  "Hematology & Oncology",
+  "Rehabilitation & Physical Medicine",
+  "Infectious Disease & Tropical Medicine",
+  "Preventive & Community Medicine",
+  "Geriatrics",
+  "Allergy & Immunology",
+  "Genetics & Genomic Medicine",
+  "Public Health & Health Administration",
+  "Dentistry & Oral Surgery"
+];
+
+module.exports=specialtyCategories;
